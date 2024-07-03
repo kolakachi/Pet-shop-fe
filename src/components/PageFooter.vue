@@ -1,6 +1,7 @@
+<!-- src/components/HorizontalNavbar.vue -->
 <template>
-  <div class="main">
-    <h1>Main Page</h1>
+  <div app>
+    <h1>Footer</h1>
   </div>
 </template>
 
@@ -8,7 +9,7 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "MainPage",
+  name: "PageFooter",
   components: {},
 });
 </script>
