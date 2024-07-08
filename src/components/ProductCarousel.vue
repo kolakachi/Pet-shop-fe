@@ -1,151 +1,137 @@
 <template>
-  <section class="products-section position-relative">
-    <div
-      ref="productSlider"
-      class="products-wrapper products-wrapper-slider overflow-x-hidden py-1 px-1"
-    >
-      <div class="row flex-md-nowrap g-4">
-        <div
-          v-for="product in products"
-          :key="product.id"
-          class="col-xl-3 col-lg-4 col-md-6 col-sm-12 product-item"
-        >
-          <a
-            href="#"
-            class="product-card d-flex flex-column gap-3 px-3 py-4 clr--black"
+  <section class="mt-3 mb-5">
+    <article class="d-flex flex-column align-items-start gap-2 text-group mb-4">
+      <h1 class="main-text clr--primary">{{ category.title }}</h1>
+    </article>
+    <section class="products-section position-relative">
+      <div
+        ref="productSlider"
+        class="products-wrapper products-wrapper-slider overflow-x-hidden py-1 px-1"
+      >
+        <div class="row flex-md-nowrap g-4">
+          <div
+            v-for="product in products"
+            :key="product.uuid"
+            class="col-xl-3 col-lg-4 col-md-6 col-sm-12 product-item"
           >
-            <div class="product-card-img-div d-flex">
-              <img
-                class="product-card-img w-100"
-                :src="product.imgSrc"
-                :alt="product.imgAlt"
-              />
-            </div>
-            <div class="d-flex flex-column gap-1">
-              <h6 class="product-title text-decoration-underline">
-                {{ product.title }}
-              </h6>
-              <p class="product-description">{{ product.description }}</p>
-              <h6 class="product-quantity">{{ product.quantity }}</h6>
-            </div>
-          </a>
+            <a
+              href="#"
+              class="product-card d-flex flex-column gap-3 px-3 py-4 clr--black"
+            >
+              <div class="product-card-img-div d-flex">
+                <img
+                  class="product-card-img w-100"
+                  :src="getImageUrl(product.metadata.image)"
+                />
+              </div>
+              <div class="d-flex flex-column gap-1">
+                <h6
+                  class="product-title text-decoration-underline product-card-text"
+                >
+                  {{ product.title }}
+                </h6>
+                <p class="product-description product-card-text">
+                  {{ product.description }}
+                </p>
+                <h6 class="product-quantity">{{ product.quantity }}</h6>
+              </div>
+            </a>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="product-slide-controls">
-      <button
-        class="btn-prev start-0 d-sm-block d-none"
-        :disabled="isPrevDisabled"
-        @click="prevSlide"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          style="transform: rotate(180deg)"
-          width="22"
-          height="36"
-          viewBox="0 0 26 40"
-          fill="none"
+      <div class="product-slide-controls">
+        <button
+          class="btn-prev start-0 d-sm-block d-none"
+          :disabled="isPrevDisabled"
+          @click="prevSlide"
         >
-          <path
-            d="M5.33379 0L0.633789 4.7L15.9005 20L0.633789 35.3L5.33379 40L25.3338 20L5.33379 0Z"
-            fill="black"
-            fill-opacity="0.54"
-          />
-        </svg>
-      </button>
-      <button class="btn-next end-0 d-sm-block d-none" @click="nextSlide">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="22"
-          height="36"
-          viewBox="0 0 26 40"
-          fill="none"
-        >
-          <path
-            d="M5.33379 0L0.633789 4.7L15.9005 20L0.633789 35.3L5.33379 40L25.3338 20L5.33379 0Z"
-            fill="black"
-            fill-opacity="0.54"
-          />
-        </svg>
-      </button>
-    </div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            style="transform: rotate(180deg)"
+            width="22"
+            height="36"
+            viewBox="0 0 26 40"
+            fill="none"
+          >
+            <path
+              d="M5.33379 0L0.633789 4.7L15.9005 20L0.633789 35.3L5.33379 40L25.3338 20L5.33379 0Z"
+              fill="black"
+              fill-opacity="0.54"
+            />
+          </svg>
+        </button>
+        <button class="btn-next end-0 d-sm-block d-none" @click="nextSlide">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="22"
+            height="36"
+            viewBox="0 0 26 40"
+            fill="none"
+          >
+            <path
+              d="M5.33379 0L0.633789 4.7L15.9005 20L0.633789 35.3L5.33379 40L25.3338 20L5.33379 0Z"
+              fill="black"
+              fill-opacity="0.54"
+            />
+          </svg>
+        </button>
+      </div>
+    </section>
   </section>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, onMounted, ref, PropType } from "vue";
+import axios from "axios";
+
+interface Category {
+  uuid: string;
+  title: string;
+  slug: string;
+  created_at: string;
+  updated_at: string;
+}
 
 interface Product {
-  id: number;
-  imgSrc: string;
-  imgAlt: string;
+  category_uuid: string;
   title: string;
+  uuid: string;
+  price: number;
   description: string;
-  quantity: string;
+  metadata: {
+    brand: string;
+    image: string;
+  };
+  created_at: string;
+  updated_at: string;
+  deleted_at: string | null;
 }
 
 export default defineComponent({
   name: "ProductCarousel",
-  setup() {
-    const products = ref<Product[]>([
-      {
-        id: 1,
-        imgSrc: "assets/images/demo-product.png",
-        imgAlt: "Product Image",
-        title: "Brit care endurance",
-        description: "Animonda",
-        quantity: "200kn",
-      },
-      {
-        id: 2,
-        imgSrc: "assets/images/demo-product.png",
-        imgAlt: "Product Image",
-        title: "Brit care endurance",
-        description: "Animonda",
-        quantity: "200kn",
-      },
-      {
-        id: 3,
-        imgSrc: "assets/images/demo-product.png",
-        imgAlt: "Product Image",
-        title: "Brit care endurance",
-        description: "Animonda",
-        quantity: "200kn",
-      },
-      {
-        id: 4,
-        imgSrc: "assets/images/demo-product.png",
-        imgAlt: "Product Image",
-        title: "Brit care endurance",
-        description: "Animonda",
-        quantity: "200kn",
-      },
-      {
-        id: 5,
-        imgSrc: "assets/images/demo-product.png",
-        imgAlt: "Product Image",
-        title: "Brit care endurance",
-        description: "Animonda",
-        quantity: "200kn",
-      },
-      {
-        id: 6,
-        imgSrc: "assets/images/demo-product.png",
-        imgAlt: "Product Image",
-        title: "Brit care endurance",
-        description: "Animonda",
-        quantity: "200kn",
-      },
-      {
-        id: 7,
-        imgSrc: "assets/images/demo-product.png",
-        imgAlt: "Product Image",
-        title: "Brit care endurance",
-        description: "Animonda",
-        quantity: "200kn",
-      },
-    ]);
+  props: {
+    category: {
+      type: Object as PropType<Category>,
+      required: true,
+    },
+  },
+  setup(props) {
+    const products = ref<Product[]>([]);
+    const fetchProductsByCategory = async (categoryUuid: string) => {
+      try {
+        const response = await axios.get(
+          `https://pet-shop.buckhill.com.hr/api/v1/products?limit=10&category=${categoryUuid}`
+        );
+        products.value = response.data.data;
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    const getImageUrl = (imageUuid: string) => {
+      return `https://pet-shop.buckhill.com.hr/api/v1/file/${imageUuid}`;
+    };
 
     const productSlider = ref<HTMLElement | null>(null);
     const isPrevDisabled = ref(true);
@@ -179,10 +165,15 @@ export default defineComponent({
       }
     };
 
+    onMounted(() => {
+      fetchProductsByCategory(props.category.uuid);
+    });
+
     return {
       products,
       productSlider,
       isPrevDisabled,
+      getImageUrl,
       nextSlide,
       prevSlide,
     };
@@ -217,5 +208,21 @@ export default defineComponent({
 }
 .product-description {
   color: #0000008a;
+}
+
+.product-card-img-div {
+  width: 198px;
+  height: 198px;
+  overflow: hidden;
+}
+.product-card-img-div img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.product-card-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 </style>
