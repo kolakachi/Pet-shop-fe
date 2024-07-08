@@ -1,0 +1,438 @@
+/*
+
+GLOBAL.CSS ⭐
+
+This contains general component styles which run across every part
+of the app, including the  header, footer etc
+It also includes utility/custom classes, css variables & global resets.
+
+
+*/
+
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", "Montserrat", sans-serif;
+  scroll-behavior: smooth;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  scroll-behavior: smooth;
+  background-color: var(--body-color);
+  overflow-x: hidden;
+}
+
+body::-webkit-scrollbar {
+  width: 0;
+}
+
+:root {
+  /* COLORS */
+  --black: #000;
+  --text-dark: #212529;
+  --white: #fff;
+  --primary: #4ec690;
+  --primary-dark: #3fad7b;
+  --body-color: #fff;
+  --footer-color: #edf5f1;
+  --danger: #dc3545;
+
+  /* FONT SIZES */
+  --font-05: 0.3125rem;
+  --font-06: 0.375rem;
+  --font-07: 0.4375rem;
+  --font-08: 0.5rem;
+  --font-09: 0.5625rem;
+  --font-10: 0.625rem;
+  --font-11: 0.6875rem;
+  --font-12: 0.75rem;
+  --font-13: 0.8125rem;
+  --font-14: 0.875rem;
+  --font-15: 0.9375rem;
+  --font-16: 1rem;
+  --font-17: 1.0625rem;
+  --font-18: 1.125rem;
+  --font-19: 1.1875rem;
+  --font-19: 1.1875rem;
+  --font-20: 1.25rem;
+  --font-21: 1.3125rem;
+  --font-22: 1.375rem;
+  --font-23: 1.4375rem;
+  --font-24: 1.5rem;
+  --font-25: 1.5625rem;
+  --font-26: 1.625rem;
+  --font-27: 1.6875rem;
+  --font-28: 1.75rem;
+  --font-29: 1.8125rem;
+  --font-30: 1.875rem;
+  --font-31: 1.9375rem;
+  --font-32: 2rem;
+  --font-33: 2.0625rem;
+  --font-34: 2.125rem;
+  --font-35: 2.1875rem;
+  --font-36: 2.25rem;
+  --font-37: 2.3125rem;
+  --font-38: 2.375rem;
+  --font-39: 2.4375rem;
+  --font-40: 2.5rem;
+  --font-41: 2.5625rem;
+  --font-42: 2.625rem;
+  --font-43: 2.6875rem;
+  --font-44: 2.75rem;
+  --font-45: 2.8125rem;
+  --font-46: 2.875rem;
+  --font-47: 2.9375rem;
+  --font-48: 3rem;
+  --font-49: 3.0625rem;
+  --font-50: 3.125rem;
+}
+
+/*
+
+
+Global Resets
+👇🏽👇🏽👇🏽👇🏽👇🏽
+
+*/
+
+section,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+b,
+mark,
+small,
+strong,
+header,
+a,
+ul,
+nav,
+header,
+li,
+button,
+span {
+  padding: 0;
+  margin: 0;
+}
+
+button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+a {
+  text-decoration: none;
+}
+
+input,
+button {
+  font-family: inherit;
+  outline: none;
+  font-size: var(--font-15);
+}
+ul,
+li {
+  list-style: none;
+}
+
+a,
+p,
+button {
+  font-size: var(--font-15);
+  border: none;
+}
+
+button {
+  background: none;
+  cursor: pointer;
+}
+
+select {
+  appearance: none;
+  outline: none;
+}
+
+textarea::placeholder,
+input::placeholder {
+  font-size: var(--font-14);
+  font-weight: 400;
+}
+
+/*
+
+Custom & Utility classes
+👇🏽👇🏽👇🏽👇🏽👇🏽👇🏽👇🏽👇🏽👇🏽
+
+
+*/
+
+.fnt-10 {
+  font-size: var(--font-10);
+}
+
+.fnt-11 {
+  font-size: var(--font-11);
+}
+
+.fnt-12 {
+  font-size: var(--font-12);
+}
+
+.fnt-13 {
+  font-size: var(--font-13);
+}
+
+.fnt-14 {
+  font-size: var(--font-14);
+}
+
+.fnt-15 {
+  font-size: var(--font-15);
+}
+.fnt-16 {
+  font-size: var(--font-16);
+}
+.fnt-17 {
+  font-size: var(--font-17);
+}
+.fnt-18 {
+  font-size: var(--font-18);
+}
+.fnt-19 {
+  font-size: var(--font-19);
+}
+.fnt-20 {
+  font-size: var(--font-20);
+}
+.fnt-21 {
+  font-size: var(--font-21);
+}
+.fnt-22 {
+  font-size: var(--font-22);
+}
+.fnt-23 {
+  font-size: var(--font-23);
+}
+.fnt-24 {
+  font-size: var(--font-24);
+}
+
+.pe-none-inner > * {
+  pointer-events: none;
+}
+
+.custom--padding {
+  padding-left: var(--font-16);
+  padding-right: var(--font-16);
+}
+
+.custom--modal--padding {
+  padding: 1.5rem 3rem;
+}
+
+.flex-one {
+  flex: 1;
+}
+
+.clr--white {
+  color: var(--white);
+}
+.clr--inherit {
+  color: inherit;
+}
+.clr--dark {
+  color: var(--text-dark);
+}
+.clr--black {
+  color: var(--black);
+}
+.clr--primary {
+  color: var(--primary);
+}
+
+.primary--bg {
+  background-color: var(--primary);
+}
+
+button.primary--bg,
+a.primary--bg {
+  transition: 0.3s;
+}
+button.primary--bg:hover,
+a.primary--bg:hover {
+  background-color: var(--primary-dark);
+}
+
+.custom--width {
+  max-width: 1000px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.custom--width.custom--width--1200 {
+  max-width: 1200px;
+}
+
+.main {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  margin-top: 75px; /* Height of the Navbar */
+}
+
+.main-inner {
+  transform: translateY(-15px);
+  opacity: 0;
+  animation: reveal 0.5s forwards ease-out;
+}
+
+@keyframes reveal {
+  100% {
+    opacity: 1;
+    transform: translate(0) scale(1);
+  }
+}
+
+.btn-with-ripple {
+  z-index: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-with-ripple > * {
+  pointer-events: none;
+}
+
+.btn-ripple {
+  position: absolute;
+  width: 60%;
+  max-width: 170px;
+  aspect-ratio: 1 / 1;
+  background-color: #fff;
+  z-index: -1;
+  left: var(--x);
+  top: var(--y);
+  transform: translate(-50%, -50%) scale(0);
+  border-radius: 50%;
+  opacity: 0.4;
+}
+
+@keyframes ripple {
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+  }
+}
+.btn-ripple.visible {
+  animation: ripple 0.4s;
+}
+
+/* LOADER STYLING */
+/* LOADER */
+.custom--loader {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 210;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 70px;
+}
+.custom--loader.active {
+  display: flex;
+}
+.loader-text {
+  font-size: var(--font-16);
+  color: var(--white);
+  letter-spacing: 1.4px;
+  /* text-transform: uppercase; */
+  text-align: center;
+  font-weight: 300;
+  font-family: "Montserrat", sans-serif;
+}
+
+.loader-text * {
+  font-family: "Montserrat", sans-serif;
+}
+.vertical-centered-box {
+  text-align: center;
+}
+
+.loader-circle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  margin-left: -60px;
+  margin-top: -60px;
+}
+.loader-line-mask {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 60px;
+  height: 120px;
+  margin-left: -60px;
+  margin-top: -60px;
+  overflow: hidden;
+  transform-origin: 60px 60px;
+  mask-image: -webkit-linear-gradient(top, #000000, rgba(0, 0, 0, 0));
+  -webkit-mask-image: -webkit-linear-gradient(top, #000000, rgba(0, 0, 0, 0));
+  animation: rotate 1s infinite linear;
+}
+.loader-line-mask .loader-line {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+}
+.custom--loader .shield {
+  width: 100%;
+  animation: opacity 1s alternate infinite ease-in-out;
+}
+@keyframes opacity {
+  from {
+    opacity: 0.07;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  html {
+    font-size: 14.5px;
+  }
+}
+@media screen and (max-width: 800px) {
+  .custom--modal--padding {
+    padding: 1.5rem var(--font-16);
+  }
+}
