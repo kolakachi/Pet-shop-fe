@@ -8,7 +8,7 @@
           href="index.html"
           class="navbar-logo align-items-center gap-2 clr--white"
         >
-          <img src="assets/images/logos/logo(white).svg" alt="Petson Logo" />
+          <img src="/assets/images/logos/logo(white).svg" alt="Petson Logo" />
           <p class="fnt-19">petson.</p>
         </a>
 

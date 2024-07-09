@@ -4,7 +4,7 @@
       <div class="d-flex flex-md-row flex-column gap-3">
         <section class="pe-3 d-flex justify-content-center">
           <img
-            src="assets/images/logos/logo(green).png"
+            src="/assets/images/logos/logo(green).png"
             style="height: max-content"
             alt="Petson Logo"
           />
