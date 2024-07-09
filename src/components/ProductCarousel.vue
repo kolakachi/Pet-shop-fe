@@ -1,7 +1,17 @@
 <template>
   <section class="mt-3 mb-5">
     <article class="d-flex flex-column align-items-start gap-2 text-group mb-4">
-      <h1 class="main-text clr--primary">{{ category.title }}</h1>
+      <h1 class="main-text clr--primary">
+        <router-link
+          :to="{
+            name: 'category',
+            params: { slug: category.slug },
+            query: { uuid: category.uuid },
+          }"
+        >
+          {{ category.title }}
+        </router-link>
+      </h1>
     </article>
     <section class="products-section position-relative">
       <div
@@ -33,7 +43,7 @@
                 <p class="product-description product-card-text">
                   {{ product.description }}
                 </p>
-                <h6 class="product-quantity">{{ product.quantity }}</h6>
+                <h6 class="product-quantity">{{ product.price }}kn</h6>
               </div>
             </a>
           </div>
@@ -224,5 +234,10 @@ export default defineComponent({
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.main-text a {
+  font-weight: 300 !important;
+  color: var(--primary) !important;
+  font-size: 2.5rem !important;
 }
 </style>
