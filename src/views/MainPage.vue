@@ -21,15 +21,10 @@
               />
             </section>
 
-            <section class="mt-3 mb-5">
-              <article
-                class="d-flex flex-column align-items-start gap-2 text-group mb-4"
-              >
-                <h1 class="main-text clr--primary">Dry dog food</h1>
-              </article>
-
-              <ProductCarousel />
-            </section>
+            <ProductCarousel
+              v-if="categories.length > 0"
+              :category="categories[0]"
+            />
 
             <section class="mt-3 mb-5">
               <div class="row g-sm-5 g-4">
@@ -59,15 +54,10 @@
               </div>
             </section>
 
-            <section class="mt-3 mb-5">
-              <article
-                class="d-flex flex-column align-items-start gap-2 text-group mb-4"
-              >
-                <h1 class="main-text clr--primary">Pet treats and chews</h1>
-              </article>
-
-              <ProductCarousel />
-            </section>
+            <ProductCarousel
+              v-if="categories.length > 1"
+              :category="categories[1]"
+            />
 
             <section class="mt-3 mb-5">
               <div class="row g-sm-5 g-4 flex-row-reverse">
@@ -105,15 +95,45 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref, onMounted } from "vue";
+import axios from "axios";
 import SearchBar from "@/components/SearchBar.vue";
 import ProductCarousel from "@/components/ProductCarousel.vue";
+
+interface Category {
+  uuid: string;
+  title: string;
+  slug: string;
+  created_at: string;
+  updated_at: string;
+}
 
 export default defineComponent({
   name: "MainPage",
   components: {
     SearchBar,
     ProductCarousel,
+  },
+  setup() {
+    const categories = ref<Category[]>([]);
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get(
+          "https://pet-shop.buckhill.com.hr/api/v1/categories?limit=2"
+        );
+        categories.value = response.data.data;
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+
+    onMounted(() => {
+      fetchCategories();
+    });
+
+    return {
+      categories,
+    };
   },
 });
 </script>
