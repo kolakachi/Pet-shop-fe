@@ -73,6 +73,7 @@
             <p class="fw-medium text-uppercase fnt-14">Cart (0)</p>
           </router-link>
           <button
+            @click="openModal('loginModal')"
             class="navbar-btn d-flex align-items-center justify-content-center gap-2 modal-btn"
             data-modal="loginModal"
           >
@@ -95,18 +96,248 @@
         </div>
       </div>
     </section>
+    <!-- 👇🏽 Login Modal -->
+    <section
+      :class="{ visible: loginModalVisible }"
+      class="custom-modal"
+      id="loginModal"
+    >
+      <div class="modal-inner bg-white custom--modal--padding">
+        <button
+          @click="closeModal('loginModal')"
+          class="position-absolute tool-tip-btn close-modal-btn close-btn pe-none-inner"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="14"
+            viewBox="0 0 14 14"
+            fill="none"
+          >
+            <path
+              d="M14 1.41L12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41Z"
+              fill="black"
+              fill-opacity="0.54"
+            />
+          </svg>
+          <span class="tool-tip">Close</span>
+        </button>
+
+        <div class="auth-container d-flex flex-column gap-4 py-4">
+          <div class="d-flex justify-content-center">
+            <img src="assets/images/logos/logo(mixed).png" alt="Petson logo" />
+          </div>
+          <h4 class="text-center">Login</h4>
+
+          <form class="d-flex flex-column gap-4">
+            <div class="input-group d-flex gap-3">
+              <div class="input-div flex-grow-1">
+                <input
+                  type="email"
+                  class="auth-input w-100"
+                  placeholder="Email Address *"
+                  required
+                />
+              </div>
+            </div>
+            <div class="input-group d-flex gap-3">
+              <div class="input-div flex-grow-1">
+                <input
+                  type="password"
+                  class="auth-input w-100"
+                  placeholder="Password *"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-2">
+              <input type="checkbox" id="rememberMe" />
+              <label for="rememberMe">Remember Me</label>
+            </div>
+
+            <div>
+              <button
+                class="submit-btn primary--bg btn-with-ripple w-100 py-3"
+                type="submit"
+              >
+                <p class="text-uppercase clr--white fw-medium">Log In</p>
+                <span class="btn-ripple"></span>
+              </button>
+
+              <div
+                class="d-flex justify-content-between align-items-center mt-3"
+              >
+                <a href="recover-password.html">Forgot Password?</a>
+                <a
+                  @click="openModal('signUpModal')"
+                  href="#"
+                  class="modal-btn close-btn"
+                  data-modal="signUpModal"
+                  >Don’t have an account? Sign Up</a
+                >
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- 👇🏽 SignUp Modal -->
+    <section
+      :class="{ visible: signUpModalVisible }"
+      class="custom-modal"
+      id="signUpModal"
+    >
+      <div class="modal-inner bg-white custom--modal--padding">
+        <button
+          @click="closeModal('signUpModal')"
+          class="position-absolute tool-tip-btn close-modal-btn close-btn pe-none-inner"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="14"
+            viewBox="0 0 14 14"
+            fill="none"
+          >
+            <path
+              d="M14 1.41L12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41Z"
+              fill="black"
+              fill-opacity="0.54"
+            />
+          </svg>
+          <span class="tool-tip">Close</span>
+        </button>
+
+        <div class="auth-container d-flex flex-column gap-4 py-4">
+          <div class="d-flex justify-content-center">
+            <img src="assets/images/logos/logo(mixed).png" alt="Petson logo" />
+          </div>
+          <h4 class="text-center">SignUp</h4>
+
+          <form class="d-flex flex-column gap-4">
+            <div class="input-group d-flex gap-3">
+              <div class="input-div flex-grow-1">
+                <input
+                  type="text"
+                  class="auth-input w-100"
+                  placeholder="First Name *"
+                  required
+                />
+              </div>
+              <div class="input-div flex-grow-1">
+                <input
+                  type="text"
+                  class="auth-input w-100"
+                  placeholder="LastName *"
+                  required
+                />
+              </div>
+            </div>
+            <div class="input-group d-flex gap-3">
+              <div class="input-div flex-grow-1">
+                <input
+                  type="email"
+                  class="auth-input w-100"
+                  placeholder="Email Address *"
+                  required
+                />
+              </div>
+            </div>
+            <div class="input-group d-flex gap-3">
+              <div class="input-div flex-grow-1">
+                <input
+                  type="password"
+                  class="auth-input w-100"
+                  placeholder="Password *"
+                  required
+                />
+              </div>
+            </div>
+            <div class="input-group d-flex gap-3">
+              <div class="input-div flex-grow-1">
+                <input
+                  type="password"
+                  class="auth-input w-100"
+                  placeholder="Confirm Password *"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-2">
+              <input type="checkbox" id="mailUpdates" />
+              <label for="mailUpdates"
+                >I want to receive inspiration, marketing promotions and updates
+                via email.</label
+              >
+            </div>
+
+            <div>
+              <button
+                class="submit-btn primary--bg btn-with-ripple w-100 py-3"
+                type="submit"
+              >
+                <p class="text-uppercase clr--white fw-medium">Log In</p>
+                <span class="btn-ripple"></span>
+              </button>
+
+              <div
+                class="d-flex justify-content-center align-items-center mt-3"
+              >
+                <a href="#" class="modal-btn close-btn" data-modal="loginModal"
+                  >Already have an account? Log in</a
+                >
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
   </nav>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 
 export default defineComponent({
   name: "HorizontalNavbar",
-  components: {},
-  data() {
+  setup() {
+    const isLoggedin = ref(false);
+    const loginModalVisible = ref(false);
+    const signUpModalVisible = ref(false);
+    const userModalVisible = ref(false);
+
+    const openModal = (modalId: string) => {
+      if (modalId === "loginModal") {
+        loginModalVisible.value = true;
+        signUpModalVisible.value = false;
+      } else if (modalId === "userModal") {
+        userModalVisible.value = true;
+      } else if (modalId === "signUpModal") {
+        signUpModalVisible.value = true;
+        loginModalVisible.value = false;
+      }
+    };
+
+    const closeModal = (modalId: string) => {
+      if (modalId === "loginModal") {
+        loginModalVisible.value = false;
+      } else if (modalId === "userModal") {
+        userModalVisible.value = false;
+      } else if (modalId === "signUpModal") {
+        signUpModalVisible.value = false;
+      }
+    };
+
     return {
-      isLoggedin: false,
+      isLoggedin,
+      closeModal,
+      openModal,
+      loginModalVisible,
+      userModalVisible,
+      signUpModalVisible,
     };
   },
 });
@@ -262,5 +493,53 @@ export default defineComponent({
   .payment-type svg {
     width: 50px;
   }
+}
+.custom-modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  /* overflow-y: auto; */
+  z-index: 999;
+  background: rgba(18, 18, 18, 0.7);
+  backdrop-filter: blur(3px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-modal.visible {
+  display: flex;
+}
+
+.custom-modal::-webkit-scrollbar {
+  width: 0;
+}
+
+.modal-inner {
+  border-radius: var(--font-10);
+  width: 94%;
+  max-width: 550px;
+  animation: scaleUp 0.45s ease;
+  position: relative;
+  overflow-y: auto;
+  max-height: 95vh;
+  overflow-x: hidden;
+}
+
+.modal-inner.modal-inner-lg {
+  max-width: 1100px;
+}
+.close-modal-btn {
+  top: var(--font-15);
+  right: var(--font-15);
+}
+.auth-input {
+  border: 1px solid #0000003b;
+  height: 3.3rem;
+  border-radius: var(--font-06);
+  padding: 0 var(--font-12);
+  transition: 0.3s;
 }
 </style>
