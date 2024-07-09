@@ -5,6 +5,7 @@ import CategorySubPage from "../views/CategorySubPage.vue";
 import ProductPage from "../views/ProductPage.vue";
 import CartPage from "../views/CartPage.vue";
 import RecoverPasswordPage from "../views/RecoverPasswordPage.vue";
+import ChangePasswordPage from "../views/ChangePasswordPage.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -42,6 +43,11 @@ const routes: Array<RouteRecordRaw> = [
         path: "/recover-password",
         name: "recoverPassword",
         component: RecoverPasswordPage,
+      },
+      {
+        path: "/change-password",
+        name: "changePassword",
+        component: ChangePasswordPage,
       },
     ],
   },
