@@ -3,6 +3,7 @@ import MainPage from "../views/MainPage.vue";
 import UserLayout from "../layouts/UserLayout.vue";
 import CategorySubPage from "../views/CategorySubPage.vue";
 import ProductPage from "../views/ProductPage.vue";
+import CartPage from "../views/CartPage.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -30,6 +31,11 @@ const routes: Array<RouteRecordRaw> = [
         props: (route) => ({
           uuid: route.params.uuid,
         }),
+      },
+      {
+        path: "/cart",
+        name: "cart",
+        component: CartPage,
       },
     ],
   },

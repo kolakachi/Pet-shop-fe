@@ -45,8 +45,10 @@
 
         <!-- Navbar Buttons -->
         <div class="navbar-btns">
-          <a
-            href="cart.html"
+          <router-link
+            :to="{
+              name: 'cart',
+            }"
             class="navbar-btn d-flex align-items-center justify-content-center gap-2"
           >
             <svg
@@ -69,7 +71,7 @@
               </defs>
             </svg>
             <p class="fw-medium text-uppercase fnt-14">Cart (0)</p>
-          </a>
+          </router-link>
           <button
             class="navbar-btn d-flex align-items-center justify-content-center gap-2 modal-btn"
             data-modal="loginModal"
