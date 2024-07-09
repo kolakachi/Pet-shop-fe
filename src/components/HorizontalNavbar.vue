@@ -4,10 +4,7 @@
       class="navbar-center d-flex justify-content-between align-items-center"
     >
       <div class="navbar-items sidebar w-100">
-        <a
-          href="index.html"
-          class="navbar-logo align-items-center gap-2 clr--white"
-        >
+        <a href="/" class="navbar-logo align-items-center gap-2 clr--white">
           <img src="/assets/images/logos/logo(white).svg" alt="Petson Logo" />
           <p class="fnt-19">petson.</p>
         </a>
@@ -168,7 +165,11 @@
               <div
                 class="d-flex justify-content-between align-items-center mt-3"
               >
-                <a href="recover-password.html">Forgot Password?</a>
+                <router-link
+                  :to="{ name: 'recoverPassword' }"
+                  @click="closeModal('loginModal')"
+                  >Forgot Password?</router-link
+                >
                 <a
                   @click="openModal('signUpModal')"
                   href="#"
@@ -279,14 +280,18 @@
                 class="submit-btn primary--bg btn-with-ripple w-100 py-3"
                 type="submit"
               >
-                <p class="text-uppercase clr--white fw-medium">Log In</p>
+                <p class="text-uppercase clr--white fw-medium">Register</p>
                 <span class="btn-ripple"></span>
               </button>
 
               <div
                 class="d-flex justify-content-center align-items-center mt-3"
               >
-                <a href="#" class="modal-btn close-btn" data-modal="loginModal"
+                <a
+                  href="#"
+                  @click="openModal('loginModal')"
+                  class="modal-btn close-btn"
+                  data-modal="loginModal"
                   >Already have an account? Log in</a
                 >
               </div>
