@@ -24,8 +24,11 @@
             :key="product.uuid"
             class="col-xl-3 col-lg-4 col-md-6 col-sm-12 product-item"
           >
-            <a
-              href="#"
+            <router-link
+              :to="{
+                name: 'product',
+                params: { uuid: product.uuid },
+              }"
               class="product-card d-flex flex-column gap-3 px-3 py-4 clr--black"
             >
               <div class="product-card-img-div d-flex">
@@ -45,7 +48,7 @@
                 </p>
                 <h6 class="product-quantity">{{ product.price }}kn</h6>
               </div>
-            </a>
+            </router-link>
           </div>
         </div>
       </div>
