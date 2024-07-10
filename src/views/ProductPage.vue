@@ -49,6 +49,7 @@
                         <!-- 👇🏽 Add To Cart Button -->
                         <section class="d-flex">
                           <button
+                            @click="addToCart"
                             class="add-to-cart-btn d-flex align-items-center gap-2 px-3 primary--bg btn-with-ripple"
                           >
                             <svg
@@ -75,6 +76,7 @@
                         <!-- 👇🏽 Increment || Decrement -->
                         <section class="d-flex gap-2">
                           <button
+                            @click="removeFromCart"
                             class="cart-quantity-btn d-flex align-items-center justify-content-center"
                           >
                             <svg
@@ -90,9 +92,10 @@
                           <div
                             class="cart-item-total-products d-flex align-items-center justify-content-center"
                           >
-                            <p class="fw-medium">1</p>
+                            <p class="fw-medium">{{ productTotalInCart }}</p>
                           </div>
                           <button
+                            @click="addToCart"
                             class="cart-quantity-btn d-flex align-items-center justify-content-center"
                           >
                             <svg
@@ -129,8 +132,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted } from "vue";
+import { defineComponent, ref, onMounted, computed } from "vue";
 import axios from "axios";
+import { useStore } from "vuex";
 import SearchBar from "@/components/SearchBar.vue";
 
 interface Product {
@@ -143,9 +147,6 @@ interface Product {
     brand: string;
     image: string;
   };
-  created_at: string;
-  updated_at: string;
-  deleted_at: string | null;
 }
 
 export default defineComponent({
@@ -175,12 +176,28 @@ export default defineComponent({
       return `https://pet-shop.buckhill.com.hr/api/v1/file/${imageUuid}`;
     };
     onMounted(() => {
-      console.log(props.uuid);
       fetchProductById(props.uuid);
     });
+
+    const store = useStore();
+    const productTotalInCart = computed(() => {
+      let result = store.getters.productTotalInCart(product.value.uuid);
+      console.log(result);
+      return result;
+    });
+    const removeFromCart = () => {
+      store.dispatch("removeFromCart", product.value.uuid);
+    };
+    const addToCart = () => {
+      store.dispatch("addToCart", product.value);
+    };
+
     return {
       product,
+      productTotalInCart,
       getImageUrl,
+      addToCart,
+      removeFromCart,
     };
   },
 });

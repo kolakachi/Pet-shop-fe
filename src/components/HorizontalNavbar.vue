@@ -67,7 +67,9 @@
                 </clipPath>
               </defs>
             </svg>
-            <p class="fw-medium text-uppercase fnt-14">Cart (0)</p>
+            <p class="fw-medium text-uppercase fnt-14">
+              Cart ({{ cartItems.length }})
+            </p>
           </router-link>
           <button
             @click="openModal('loginModal')"
@@ -304,11 +306,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, computed } from "vue";
+import { useStore } from "vuex";
 
 export default defineComponent({
   name: "HorizontalNavbar",
   setup() {
+    const store = useStore();
+    const cartItems = computed(() => store.getters.cartItems);
+
     const isLoggedin = ref(false);
     const loginModalVisible = ref(false);
     const signUpModalVisible = ref(false);
@@ -337,6 +343,7 @@ export default defineComponent({
     };
 
     return {
+      cartItems,
       isLoggedin,
       closeModal,
       openModal,
