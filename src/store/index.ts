@@ -31,10 +31,9 @@ export default createStore<State>({
   mutations: {
     addToCart(state, product: Product) {
       const cartItem = state.cart.find((item) => {
-        console.log([item.product.uuid, product.uuid]);
-        item.product.uuid === product.uuid;
+        return item.product.uuid === product.uuid;
       });
-      console.log(cartItem);
+
       if (cartItem) {
         cartItem.quantity++;
       } else {
@@ -71,6 +70,9 @@ export default createStore<State>({
     cartItems(state) {
       return state.cart;
     },
+    cartTotalItems(state) {
+      return state.cart.reduce((total, item) => total + item.quantity, 0);
+    },
     cartTotal(state) {
       return state.cart.reduce(
         (total, item) => total + item.product.price * item.quantity,
@@ -78,7 +80,6 @@ export default createStore<State>({
       );
     },
     productTotalInCart: (state) => (productUuid: string) => {
-      console.log(state.cart);
       const item = state.cart.find(
         (item: CartItem) => item.product.uuid === productUuid
       );

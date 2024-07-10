@@ -68,7 +68,7 @@
               </defs>
             </svg>
             <p class="fw-medium text-uppercase fnt-14">
-              Cart ({{ cartItems.length }})
+              Cart ({{ cartTotalItems }})
             </p>
           </router-link>
           <button
@@ -313,7 +313,7 @@ export default defineComponent({
   name: "HorizontalNavbar",
   setup() {
     const store = useStore();
-    const cartItems = computed(() => store.getters.cartItems);
+    const cartTotalItems = computed(() => store.getters.cartTotalItems);
 
     const isLoggedin = ref(false);
     const loginModalVisible = ref(false);
@@ -343,7 +343,7 @@ export default defineComponent({
     };
 
     return {
-      cartItems,
+      cartTotalItems,
       isLoggedin,
       closeModal,
       openModal,
