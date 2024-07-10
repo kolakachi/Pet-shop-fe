@@ -196,6 +196,7 @@
 
                             <div>
                               <button
+                                @click="addToCart(product)"
                                 class="add-to-cart-btn d-flex align-items-center gap-2 px-3 primary--bg btn-with-ripple"
                               >
                                 <svg
@@ -236,6 +237,7 @@
 <script lang="ts">
 import { defineComponent, ref, onMounted } from "vue";
 import axios from "axios";
+import { useStore } from "vuex";
 import SearchBar from "@/components/SearchBar.vue";
 
 interface Product {
@@ -289,8 +291,14 @@ export default defineComponent({
       fetchProductsByCategory(props.uuid);
     });
 
+    const store = useStore();
+    const addToCart = (product) => {
+      store.dispatch("addToCart", product);
+    };
+
     return {
       products,
+      addToCart,
       getImageUrl,
     };
   },
