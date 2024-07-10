@@ -6,6 +6,7 @@ import ProductPage from "../views/ProductPage.vue";
 import CartPage from "../views/CartPage.vue";
 import RecoverPasswordPage from "../views/RecoverPasswordPage.vue";
 import ChangePasswordPage from "../views/ChangePasswordPage.vue";
+import CheckoutPage from "../views/CheckoutPage.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -48,6 +49,11 @@ const routes: Array<RouteRecordRaw> = [
         path: "/change-password",
         name: "changePassword",
         component: ChangePasswordPage,
+      },
+      {
+        path: "/checkout",
+        name: "checkoutPage",
+        component: CheckoutPage,
       },
     ],
   },
