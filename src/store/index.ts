@@ -1,18 +1,6 @@
 import { createStore } from "vuex";
 import createPersistedState from "vuex-persistedstate";
-
-// Define the shape of your product
-interface Product {
-  category_uuid: string;
-  title: string;
-  uuid: string;
-  price: number;
-  description: string;
-  metadata: {
-    brand: string;
-    image: string;
-  };
-}
+import { Product } from "../models/Product";
 
 // Define the shape of your cart item
 interface CartItem {

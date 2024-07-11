@@ -135,19 +135,8 @@
 import { defineComponent, ref, onMounted, computed } from "vue";
 import axios from "axios";
 import { useStore } from "vuex";
+import { Product } from "../models/Product";
 import SearchBar from "@/components/SearchBar.vue";
-
-interface Product {
-  category_uuid: string;
-  title: string;
-  uuid: string;
-  price: number;
-  description: string;
-  metadata: {
-    brand: string;
-    image: string;
-  };
-}
 
 export default defineComponent({
   name: "ProductPage",

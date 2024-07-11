@@ -97,29 +97,8 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref, PropType } from "vue";
 import axios from "axios";
-
-interface Category {
-  uuid: string;
-  title: string;
-  slug: string;
-  created_at: string;
-  updated_at: string;
-}
-
-interface Product {
-  category_uuid: string;
-  title: string;
-  uuid: string;
-  price: number;
-  description: string;
-  metadata: {
-    brand: string;
-    image: string;
-  };
-  created_at: string;
-  updated_at: string;
-  deleted_at: string | null;
-}
+import { Category } from "../models/Category";
+import { Product } from "../models/Product";
 
 export default defineComponent({
   name: "ProductCarousel",

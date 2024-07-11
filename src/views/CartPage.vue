@@ -149,18 +149,7 @@
 import { defineComponent, computed } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
-
-interface Product {
-  category_uuid: string;
-  title: string;
-  uuid: string;
-  price: number;
-  description: string;
-  metadata: {
-    brand: string;
-    image: string;
-  };
-}
+import { Product } from "../models/Product";
 
 export default defineComponent({
   name: "CartPage",

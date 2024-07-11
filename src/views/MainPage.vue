@@ -99,14 +99,7 @@ import { defineComponent, ref, onMounted } from "vue";
 import axios from "axios";
 import SearchBar from "@/components/SearchBar.vue";
 import ProductCarousel from "@/components/ProductCarousel.vue";
-
-interface Category {
-  uuid: string;
-  title: string;
-  slug: string;
-  created_at: string;
-  updated_at: string;
-}
+import { Category } from "../models/Category";
 
 export default defineComponent({
   name: "MainPage",
