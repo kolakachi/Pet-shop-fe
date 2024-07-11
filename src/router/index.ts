@@ -49,6 +49,9 @@ const routes: Array<RouteRecordRaw> = [
         path: "/change-password",
         name: "changePassword",
         component: ChangePasswordPage,
+        props: (route) => ({
+          token: route.query.token,
+        }),
       },
       {
         path: "/checkout",
