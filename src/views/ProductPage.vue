@@ -161,7 +161,17 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const product = ref<Product | null>(null);
+    const product = ref<Product>({
+      category_uuid: "",
+      title: "",
+      uuid: "",
+      price: 0,
+      description: "",
+      metadata: {
+        brand: "",
+        image: "",
+      },
+    });
     const fetchProductById = async (productUuid: string) => {
       try {
         const response = await axios.get(
