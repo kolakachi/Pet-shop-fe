@@ -51,6 +51,14 @@ export default createStore<State>({
         }
       }
     },
+    removeProductFromCart(state, productUuid: string) {
+      const index = state.cart.findIndex(
+        (item) => item.product.uuid === productUuid
+      );
+      if (index !== -1) {
+        state.cart.splice(index, 1);
+      }
+    },
     clearCart(state) {
       state.cart = [];
     },
@@ -61,6 +69,9 @@ export default createStore<State>({
     },
     removeFromCart({ commit }, productUuid: string) {
       commit("removeFromCart", productUuid);
+    },
+    removeProductFromCart({ commit }, productUuid: string) {
+      commit("removeProductFromCart", productUuid);
     },
     clearCart({ commit }) {
       commit("clearCart");
