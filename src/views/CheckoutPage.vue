@@ -48,11 +48,15 @@
                 >
                   <header class="fw-medium fnt-19">Shipping Address</header>
 
-                  <form class="d-flex flex-column gap-4">
+                  <form
+                    class="d-flex flex-column gap-4"
+                    @submit.prevent="goNext()"
+                  >
                     <div class="input-group d-flex gap-4 gap-md-5">
                       <div class="input-div flex-grow-1">
                         <input
                           type="text"
+                          v-model="checkout.shipping_address.first_name"
                           class="border-bottom-input w-100"
                           placeholder="First Name *"
                           required
@@ -61,6 +65,7 @@
                       <div class="input-div flex-grow-1">
                         <input
                           type="text"
+                          v-model="checkout.shipping_address.last_name"
                           class="border-bottom-input w-100"
                           placeholder="Last Name *"
                           required
@@ -72,6 +77,7 @@
                       <div class="input-div flex-grow-1">
                         <input
                           type="text"
+                          v-model="checkout.shipping_address.address_line_1"
                           class="border-bottom-input w-100"
                           placeholder="Address line 1 *"
                           required
@@ -83,6 +89,7 @@
                       <div class="input-div flex-grow-1">
                         <input
                           type="text"
+                          v-model="checkout.shipping_address.address_line_2"
                           class="border-bottom-input w-100"
                           placeholder="Address line 2 *"
                           required
@@ -94,6 +101,7 @@
                       <div class="input-div flex-grow-1">
                         <input
                           type="text"
+                          v-model="checkout.shipping_address.city"
                           class="border-bottom-input w-100"
                           placeholder="City"
                           required
@@ -102,6 +110,7 @@
                       <div class="input-div flex-grow-1">
                         <input
                           type="text"
+                          v-model="checkout.shipping_address.state"
                           class="border-bottom-input w-100"
                           placeholder="State/Province/Region"
                           required
@@ -112,6 +121,7 @@
                       <div class="input-div flex-grow-1">
                         <input
                           type="text"
+                          v-model="checkout.shipping_address.zip"
                           class="border-bottom-input w-100"
                           placeholder="Zip/Postal code *"
                           required
@@ -120,6 +130,7 @@
                       <div class="input-div flex-grow-1">
                         <input
                           type="text"
+                          v-model="checkout.shipping_address.country"
                           class="border-bottom-input w-100"
                           placeholder="Country *"
                           required
@@ -128,13 +139,13 @@
                     </div>
 
                     <div class="d-flex align-items-center gap-2">
-                      <input type="checkbox" id="" />
+                      <input type="checkbox" v-model="useShippingAsPayment" />
                       <label for="">Use this address for payment details</label>
                     </div>
 
                     <div class="d-flex justify-content-end mt-4">
                       <button
-                        @click="goNext()"
+                        type="submit"
                         class="primary--bg px-5 py-2 btn-with-ripple"
                         style="
                           border-radius: var(--font-05);
@@ -156,11 +167,15 @@
                 >
                   <header class="fw-medium fnt-19">Payment Details</header>
 
-                  <form class="d-flex flex-column gap-4">
+                  <form
+                    class="d-flex flex-column gap-4"
+                    @submit.prevent="goNext()"
+                  >
                     <div class="input-group d-flex gap-4 gap-md-5">
                       <div class="input-div flex-grow-1">
                         <input
                           type="text"
+                          v-model="checkout.payment_details.first_name"
                           class="border-bottom-input w-100"
                           placeholder="First Name *"
                           required
@@ -169,6 +184,7 @@
                       <div class="input-div flex-grow-1">
                         <input
                           type="text"
+                          v-model="checkout.payment_details.last_name"
                           class="border-bottom-input w-100"
                           placeholder="Last Name *"
                           required
@@ -180,6 +196,7 @@
                       <div class="input-div flex-grow-1">
                         <input
                           type="text"
+                          v-model="checkout.payment_details.address_line_1"
                           class="border-bottom-input w-100"
                           placeholder="Address line 1 *"
                           required
@@ -191,6 +208,7 @@
                       <div class="input-div flex-grow-1">
                         <input
                           type="text"
+                          v-model="checkout.payment_details.address_line_2"
                           class="border-bottom-input w-100"
                           placeholder="Address line 2 *"
                           required
@@ -202,6 +220,7 @@
                       <div class="input-div flex-grow-1">
                         <input
                           type="text"
+                          v-model="checkout.payment_details.city"
                           class="border-bottom-input w-100"
                           placeholder="City"
                           required
@@ -210,6 +229,7 @@
                       <div class="input-div flex-grow-1">
                         <input
                           type="text"
+                          v-model="checkout.payment_details.state"
                           class="border-bottom-input w-100"
                           placeholder="State/Province/Region"
                           required
@@ -221,6 +241,7 @@
                       <div class="input-div flex-grow-1">
                         <input
                           type="text"
+                          v-model="checkout.payment_details.zip"
                           class="border-bottom-input w-100"
                           placeholder="Zip/Postal code *"
                           required
@@ -229,6 +250,7 @@
                       <div class="input-div flex-grow-1">
                         <input
                           type="text"
+                          v-model="checkout.payment_details.country"
                           class="border-bottom-input w-100"
                           placeholder="Country *"
                           required
@@ -237,7 +259,7 @@
                     </div>
 
                     <div class="d-flex align-items-center gap-2">
-                      <input type="checkbox" id="" />
+                      <input type="checkbox" v-model="usePaymentAsShipping" />
                       <label for=""
                         >Payment details are same as shipping details</label
                       >
@@ -324,6 +346,9 @@
                               <div class="input-div flex-grow-1">
                                 <input
                                   type="text"
+                                  v-model="
+                                    checkout.card_details.credit_card_number
+                                  "
                                   class="border-bottom-input w-100"
                                   placeholder="Credit Card Number *"
                                   required
@@ -334,6 +359,7 @@
                               <div class="input-div flex-grow-1">
                                 <input
                                   type="text"
+                                  v-model="checkout.card_details.expiry_date"
                                   class="border-bottom-input w-100"
                                   placeholder="Expiry *"
                                   required
@@ -342,6 +368,7 @@
                               <div class="input-div flex-grow-1">
                                 <input
                                   type="text"
+                                  v-model="checkout.card_details.cvv"
                                   class="border-bottom-input w-100"
                                   placeholder="CVV *"
                                   required
@@ -365,6 +392,7 @@
                               <div class="input-div flex-grow-1">
                                 <input
                                   type="text"
+                                  v-model="checkout.cash_on_delivery.first_name"
                                   class="border-bottom-input w-100"
                                   placeholder="First Name *"
                                   required
@@ -373,6 +401,7 @@
                               <div class="input-div flex-grow-1">
                                 <input
                                   type="text"
+                                  v-model="checkout.cash_on_delivery.last_name"
                                   class="border-bottom-input w-100"
                                   placeholder="Last Name *"
                                   required
@@ -384,6 +413,9 @@
                               <div class="input-div flex-grow-1">
                                 <input
                                   type="text"
+                                  v-model="
+                                    checkout.cash_on_delivery.address_line_1
+                                  "
                                   class="border-bottom-input w-100"
                                   placeholder="Address Line 1 *"
                                   required
@@ -394,6 +426,9 @@
                               <div class="input-div flex-grow-1">
                                 <input
                                   type="text"
+                                  v-model="
+                                    checkout.cash_on_delivery.address_line_2
+                                  "
                                   class="border-bottom-input w-100"
                                   placeholder="Address Line 2 *"
                                   required
@@ -401,7 +436,10 @@
                               </div>
                             </div>
                             <div class="d-flex align-items-center gap-2">
-                              <input type="checkbox" id="" />
+                              <input
+                                type="checkbox"
+                                v-model="checkout.cash_on_delivery.consent"
+                              />
                               <label for="">I consent to your T&C’s</label>
                             </div>
                           </div>
@@ -421,6 +459,7 @@
                               <div class="input-div flex-grow-1">
                                 <input
                                   type="text"
+                                  v-model="checkout.bank_transfer.swift_code"
                                   class="border-bottom-input w-100"
                                   placeholder="Bank SWIFT code *"
                                   required
@@ -432,6 +471,7 @@
                               <div class="input-div flex-grow-1">
                                 <input
                                   type="text"
+                                  v-model="checkout.bank_transfer.iban"
                                   class="border-bottom-input w-100"
                                   placeholder="IBAN *"
                                   required
@@ -440,6 +480,7 @@
                               <div class="input-div flex-grow-1">
                                 <input
                                   type="text"
+                                  v-model="checkout.bank_transfer.name"
                                   class="border-bottom-input w-100"
                                   placeholder="Name *"
                                   required
@@ -450,6 +491,7 @@
                               <div class="input-div flex-grow-1">
                                 <input
                                   type="text"
+                                  v-model="checkout.bank_transfer.ref_code"
                                   class="border-bottom-input w-100"
                                   placeholder="Ref Code *"
                                   required
@@ -463,7 +505,21 @@
 
                     <div class="d-flex justify-content-end mt-4">
                       <button
-                        @click="goNext()"
+                        type="button"
+                        @click="setStep(1)"
+                        class="btn-white--bg px-4 py-2 btn-with-ripple"
+                        style="
+                          margin-right: 10px;
+                          border-radius: var(--font-05);
+                          box-shadow: 0px 0px 1px 0px #0000002b,
+                            0px 2px 4px 0px #00000029;
+                        "
+                      >
+                        <p class="clr--primary text-uppercase fw-medium">Previous</p>
+                        <span class="btn-ripple"></span>
+                      </button>
+                      <button
+                        type="submit"
                         class="primary--bg px-5 py-2 btn-with-ripple"
                         style="
                           border-radius: var(--font-05);
@@ -498,11 +554,24 @@
                       </nav>
 
                       <section class="px-3 py-2 d-flex flex-column gap-1">
-                        <h6>Firstname & Last name</h6>
-                        <p class="clr--subtext">Address Line 1</p>
-                        <p class="clr--subtext">Address Line 2</p>
-                        <p class="clr--subtext">City, State/Province/Region</p>
-                        <p class="clr--subtext">ZIP/Postal Code, Country</p>
+                        <h6>
+                          {{ checkout.shipping_address.first_name }} &
+                          {{ checkout.shipping_address.last_name }}
+                        </h6>
+                        <p class="clr--subtext">
+                          {{ checkout.shipping_address.address_line_1 }}
+                        </p>
+                        <p class="clr--subtext">
+                          {{ checkout.shipping_address.address_line_2 }}
+                        </p>
+                        <p class="clr--subtext">
+                          {{ checkout.shipping_address.city }},
+                          {{ checkout.shipping_address.state }}
+                        </p>
+                        <p class="clr--subtext">
+                          {{ checkout.shipping_address.zip }},
+                          {{ checkout.shipping_address.country }}
+                        </p>
                       </section>
                     </div>
 
@@ -518,11 +587,24 @@
                       </nav>
 
                       <section class="px-3 py-2 d-flex flex-column gap-1">
-                        <h6>Firstname & Last name</h6>
-                        <p class="clr--subtext">Address Line 1</p>
-                        <p class="clr--subtext">Address Line 2</p>
-                        <p class="clr--subtext">City, State/Province/Region</p>
-                        <p class="clr--subtext">ZIP/Postal Code, Country</p>
+                        <h6>
+                          {{ checkout.payment_details.first_name }} &
+                          {{ checkout.payment_details.last_name }}
+                        </h6>
+                        <p class="clr--subtext">
+                          {{ checkout.payment_details.address_line_1 }}
+                        </p>
+                        <p class="clr--subtext">
+                          {{ checkout.payment_details.address_line_2 }}
+                        </p>
+                        <p class="clr--subtext">
+                          {{ checkout.payment_details.city }},
+                          {{ checkout.payment_details.state }}
+                        </p>
+                        <p class="clr--subtext">
+                          {{ checkout.payment_details.zip }},
+                          {{ checkout.payment_details.country }}
+                        </p>
                       </section>
                     </div>
 
@@ -531,7 +613,7 @@
                       style="border-top: 1px solid #00000014"
                     >
                       <h6>Payment type</h6>
-                      <p class="clr--subtext">Credit card</p>
+                      <p class="clr--subtext">{{ checkout.type_of_payment }}</p>
                     </div>
 
                     <div class="">
@@ -552,6 +634,8 @@
                       <!-- Ordered Products -->
                       <section class="px-3 py-2 d-flex flex-column gap-1">
                         <div
+                          v-for="item in cartItems"
+                          :key="item.product.uuid"
                           class="cart-item py-3"
                           style="border-bottom: 1px solid #00000014"
                         >
@@ -561,7 +645,9 @@
                                 <img
                                   class="w-100 cart-item-img object-fit-cover"
                                   style="aspect-ratio: 1 / 1"
-                                  src="https://pyxis.nymag.com/v1/imgs/f55/980/f57a2f1d6de4cbf768e5f97fb39f69caa7-dog-food-106-final.rhorizontal.w1100.jpg"
+                                  :src="
+                                    getImageUrl(item.product.metadata.image)
+                                  "
                                   alt=""
                                 />
                               </div>
@@ -572,12 +658,14 @@
                                 class="d-flex flex-column justify-content-center gap-1 h-100"
                               >
                                 <h5 class="product-title fnt-16">
-                                  Royal Canin
+                                  {{ item.product.title }}
                                 </h5>
                                 <p class="product-description fnt-14 fw-medium">
-                                  Animonda
+                                  {{ item.product.description }}
                                 </p>
-                                <h4 class="product-quantity fnt-15">15kn</h4>
+                                <h4 class="product-quantity fnt-15">
+                                  {{ item.product.price }}kn
+                                </h4>
                               </div>
                             </div>
                           </div>
@@ -630,7 +718,7 @@
                           class="d-flex align-items-center justify-content-between"
                         >
                           <p class="clr--subtext">Subtotal before delivery</p>
-                          <p class="clr--subtext">4000kn</p>
+                          <p class="clr--subtext">{{cartTotal}}kn</p>
                         </div>
                         <div
                           class="d-flex align-items-center justify-content-between"
@@ -644,7 +732,7 @@
                             class="d-flex justify-content-between align-items-center py-3"
                           >
                             <h5>Total</h5>
-                            <h5>42000Kn</h5>
+                            <h5>{{ cartTotal + 200 }}Kn</h5>
                           </div>
                         </div>
                       </section>
@@ -671,29 +759,176 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, computed } from "vue";
+import { useStore } from "vuex";
+
+interface Address {
+  first_name: string;
+  last_name: string;
+  address_line_1: string;
+  address_line_2: string;
+  city: string;
+  state: string;
+  zip: string;
+  country: string;
+}
+
+interface Checkout {
+  shipping_address: Address;
+  payment_details: Address;
+  type_of_payment: string;
+  card_details: {
+    credit_card_number: string;
+    expiry_date: string;
+    cvv: string;
+  };
+  cash_on_delivery: {
+    first_name: string;
+    last_name: string;
+    address_line_1: string;
+    address_line_2: string;
+    consent: boolean;
+  };
+  bank_transfer: {
+    swift_code: string;
+    iban: string;
+    name: string;
+    ref_code: string;
+  };
+}
 
 export default defineComponent({
   name: "CheckoutPage",
   setup() {
     const checkoutStep = ref(1);
     const paymentType = ref("credit_card");
-    const goNext = () => {
-      checkoutStep.value += 1;
+    const useShippingAsPayment = ref(false);
+    const usePaymentAsShipping = ref(false);
+    const store = useStore();
+    const cartItems = computed(() => store.getters.cartItems);
+    const cartTotal = computed(() => store.getters.cartTotal);
+    const address = ref<Address>({
+      first_name: "",
+      last_name: "",
+      address_line_1: "",
+      address_line_2: "",
+      city: "",
+      state: "",
+      zip: "",
+      country: "",
+    });
+    const checkout = ref<Checkout>({
+      shipping_address: { ...address.value },
+      payment_details: { ...address.value },
+      type_of_payment: "credit_card",
+      card_details: {
+        credit_card_number: "",
+        expiry_date: "",
+        cvv: "",
+      },
+      cash_on_delivery: {
+        first_name: "",
+        last_name: "",
+        address_line_1: "",
+        address_line_2: "",
+        consent: false,
+      },
+      bank_transfer: {
+        swift_code: "",
+        iban: "",
+        name: "",
+        ref_code: "",
+      },
+    });
+
+    const validateShippingForm = () => {
+      return (
+        checkout.value.shipping_address.first_name !== "" &&
+        checkout.value.shipping_address.last_name !== "" &&
+        checkout.value.shipping_address.address_line_1 !== "" &&
+        checkout.value.shipping_address.city !== "" &&
+        checkout.value.shipping_address.state !== "" &&
+        checkout.value.shipping_address.zip !== "" &&
+        checkout.value.shipping_address.country !== ""
+      );
     };
+
+    const validatePaymentForm = () => {
+      return (
+        checkout.value.payment_details.first_name !== "" &&
+        checkout.value.payment_details.last_name !== "" &&
+        checkout.value.payment_details.address_line_1 !== "" &&
+        checkout.value.payment_details.city !== "" &&
+        checkout.value.payment_details.state !== "" &&
+        checkout.value.payment_details.zip !== "" &&
+        checkout.value.payment_details.country !== "" &&
+        (paymentType.value === "credit_card"
+          ? checkout.value.card_details.credit_card_number !== "" &&
+            checkout.value.card_details.expiry_date !== "" &&
+            checkout.value.card_details.cvv !== ""
+          : true) &&
+        (paymentType.value === "cash_on_delivery"
+          ? checkout.value.cash_on_delivery.first_name !== "" &&
+            checkout.value.cash_on_delivery.last_name !== "" &&
+            checkout.value.cash_on_delivery.address_line_1 !== "" &&
+            checkout.value.cash_on_delivery.address_line_2 !== "" &&
+            checkout.value.cash_on_delivery.consent !== false
+          : true) &&
+        (paymentType.value === "bank_transfer"
+          ? checkout.value.bank_transfer.swift_code !== "" &&
+            checkout.value.bank_transfer.iban !== "" &&
+            checkout.value.bank_transfer.name !== "" &&
+            checkout.value.bank_transfer.ref_code !== ""
+          : true)
+      );
+    };
+
+    const goNext = () => {
+      if (checkoutStep.value === 1 && validateShippingForm()) {
+        if (useShippingAsPayment.value) {
+          checkout.value.payment_details = {
+            ...checkout.value.shipping_address,
+          };
+          usePaymentAsShipping.value = false;
+        }
+        checkoutStep.value++;
+      } else if (checkoutStep.value === 2 && validatePaymentForm()) {
+        if (usePaymentAsShipping.value) {
+          checkout.value.shipping_address = {
+            ...checkout.value.payment_details,
+          };
+          useShippingAsPayment.value = false;
+        }
+        checkoutStep.value++;
+      } else {
+        alert("Please fill in all required fields.");
+      }
+    };
+
     const setStep = (step: number) => {
       checkoutStep.value = step;
     };
     const setPaymentType = (type: string) => {
       paymentType.value = type;
+      checkout.value.type_of_payment = type;
+    };
+
+    const getImageUrl = (imageUuid: string) => {
+      return `https://pet-shop.buckhill.com.hr/api/v1/file/${imageUuid}`;
     };
 
     return {
+      cartTotal,
+      cartItems,
+      getImageUrl,
+      checkout,
       checkoutStep,
       goNext,
       setStep,
       paymentType,
       setPaymentType,
+      useShippingAsPayment,
+      usePaymentAsShipping,
     };
   },
 });
@@ -752,5 +987,8 @@ export default defineComponent({
 }
 .payment-type.active {
   background-color: #f4f6f5;
+}
+.btn-white--bg {
+    border: 1px solid var(--primary);;
 }
 </style>
