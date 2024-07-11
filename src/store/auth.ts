@@ -6,7 +6,7 @@ interface User {
   first_name: string;
   last_name: string;
   email: string;
-  avatar: string | null;
+  avatar: string;
   address: string;
   phone_number: string;
   is_marketing: number;
@@ -18,7 +18,19 @@ interface User {
 export const useAuthStore = defineStore("auth", {
   state: () => ({
     token: getToken(),
-    user: null as User | null,
+    user: {
+      uuid: "",
+      first_name: "",
+      last_name: "",
+      email: "",
+      avatar: "",
+      address: "",
+      phone_number: "",
+      is_marketing: 0,
+      updated_at: "",
+      created_at: "",
+      token: "",
+    },
   }),
   actions: {
     setUser(data: User) {
@@ -29,12 +41,27 @@ export const useAuthStore = defineStore("auth", {
       setToken(token);
     },
     logout() {
-      this.user = null;
+      this.user = {
+        uuid: "",
+        first_name: "",
+        last_name: "",
+        email: "",
+        avatar: "",
+        address: "",
+        phone_number: "",
+        is_marketing: 0,
+        updated_at: "",
+        created_at: "",
+        token: "",
+      };
       this.token = null;
       removeToken();
     },
     isLoggedIn() {
       return !!this.token;
+    },
+    getUser() {
+      return this.user;
     },
   },
 });

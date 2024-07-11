@@ -96,7 +96,7 @@
           >
             <img
               class="user-profile-img object-fit-cover rounded-circle"
-              src="https://s3-alpha-sig.figma.com/img/a8de/b080/6ecb230ed941d771dd185bcb77ae8017?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=DMSN7uCQg0gxxR0oSYGQH0OjmCWgjkk5qZksK2-v0oUdFtXDj3MUn7bCLP~aHWf3lMyvts-E0tJ2bx~z5zhxcPfK6NnKYU0dk6aTjNc6FunF618FqHIxWuoYWEKEuOtAzjcVLYaPuvLmKrILPjRedNvXviCJ3PqygOK5dJTPEIT3Q-okSLem~j5AWuWfUYUpG5RTihzL-3YHnBAc8rIrWk8m9d3e3cRwSCGWrcGB7TeMr8KF3SVERGvGoANd9MxG73f7VUSdeO29vkgh9217TBEfAcptlBmWFpnnMkh2BmoU3cSA1UHGtbVWoi3L3c0rDzQadoKlKh0pZUhvKgrmyA__"
+              :src="getUserAvatar(user.avatar)"
               alt=""
             />
             <p class="clr--white">John Rollingston</p>
@@ -359,7 +359,7 @@
                 width="150"
                 height="150"
                 class="rounded-circle"
-                src="https://s3-alpha-sig.figma.com/img/a8de/b080/6ecb230ed941d771dd185bcb77ae8017?Expires=1721606400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Hx2qka5lc2PMvSiPddaFP5HVU-MAwjzlHOjIJJARNKtlSC~93K3C-c3HOmmFQKGQn1S820YGWmTFQFNaoRAHt2w6Deol2rp5VPdmGEWI6FotDDOqClK4-W2-MHGS8b8vIigU8tTcnVZvh9p3uQmQ-mIeniD1P6zaMNOZySwBiEdZdOsUpv9W9-o5h9kntTDerkPa4NpiAnLlN5ccQIgSCnjI~Em7mPuWQDGHiJdnAORurBvR7L7CW3indPMJ9t-cDp0qt0YiCQCCBuBlxFILtQBPxb6DPGIuVnmoX4k07u6w2YKZNT-MHHfbKj5rJu37r~p9zp5nvYdoOHbl5bzPeg__"
+                :src="getUserAvatar(user.avatar)"
                 alt=""
               />
             </section>
@@ -369,33 +369,37 @@
                 <div class="col-lg-4">
                   <div>
                     <small class="clr--subtext fnt-12">Name</small>
-                    <p class="fnt-16 clr--black">John Rollingston</p>
+                    <p class="fnt-16 clr--black">
+                      {{ user.first_name }} {{ user.last_name }}
+                    </p>
                   </div>
                 </div>
                 <div class="col-lg-4">
                   <div>
                     <small class="clr--subtext fnt-12">Phone number</small>
-                    <p class="fnt-16 clr--black">(559) 979-6096</p>
+                    <p class="fnt-16 clr--black">{{ user.phone_number }}</p>
                   </div>
                 </div>
                 <div class="col-lg-4">
                   <div>
                     <small class="clr--subtext fnt-12">Address</small>
                     <p class="fnt-16 clr--black">
-                      1285 Fallen Pioneer Heights, Dallas, TX
+                      {{ user.address }}
                     </p>
                   </div>
                 </div>
                 <div class="col-lg-4">
                   <div>
                     <small class="clr--subtext fnt-12">Date joined</small>
-                    <p class="fnt-16 clr--black">14. 9. 2020.</p>
+                    <p class="fnt-16 clr--black">
+                      {{ formatDate(user.created_at) }}
+                    </p>
                   </div>
                 </div>
                 <div class="col-lg-4">
                   <div>
                     <small class="clr--subtext fnt-12">Email</small>
-                    <p class="fnt-16 clr--black">j.sharp@hotmail.com</p>
+                    <p class="fnt-16 clr--black">{{ user.email }}</p>
                   </div>
                 </div>
                 <div class="col-lg-4">
@@ -403,7 +407,9 @@
                     <small class="clr--subtext fnt-12"
                       >Marketing preferences</small
                     >
-                    <p class="fnt-16 clr--black">No</p>
+                    <p class="fnt-16 clr--black">
+                      {{ user.is_marketing == 0 ? "No" : "Yes" }}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -707,6 +713,8 @@ import { defineComponent, ref, computed } from "vue";
 import { useStore } from "vuex";
 import axios from "../axios";
 import { useAuthStore } from "../store/auth";
+import { User } from "../models/User";
+import moment from "moment";
 
 export default defineComponent({
   name: "HorizontalNavbar",
@@ -717,6 +725,19 @@ export default defineComponent({
     const loginModalVisible = ref(false);
     const signUpModalVisible = ref(false);
     const userModalVisible = ref(false);
+    const user = ref<User>({
+      uuid: "",
+      first_name: "",
+      last_name: "",
+      email: "",
+      avatar: "",
+      address: "",
+      phone_number: "",
+      is_marketing: 0,
+      updated_at: "",
+      created_at: "",
+      token: "",
+    });
 
     const openModal = (modalId: string) => {
       if (modalId === "loginModal") {
@@ -755,12 +776,28 @@ export default defineComponent({
           const response = await axios.post("/user/login", logInFormData);
           if (response.data.success) {
             authStore.setToken(response.data.data.token);
+            getUser();
             closeModal("loginModal");
           } else {
             alert(response.data.error);
           }
         } else {
           alert("Please fill in all required fields.");
+        }
+      } catch (error) {
+        alert("Encountered an error.");
+      }
+    };
+
+    const getUser = async () => {
+      try {
+        const response = await axios.get("/user");
+
+        if (response.data.success) {
+          authStore.setUser(response.data.data);
+          user.value = authStore.getUser();
+        } else {
+          alert(response.data.error);
         }
       } catch (error) {
         alert("Encountered an error.");
@@ -818,7 +855,20 @@ export default defineComponent({
       }
     };
 
+    const formatDate = (date: string) => {
+      return moment(date).format("DD.M.YYYY");
+    };
+
+    const getUserAvatar = (avatar: string | null) => {
+      if (avatar == null) {
+        return "https://s3-alpha-sig.figma.com/img/a8de/b080/6ecb230ed941d771dd185bcb77ae8017?Expires=1721606400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Hx2qka5lc2PMvSiPddaFP5HVU-MAwjzlHOjIJJARNKtlSC~93K3C-c3HOmmFQKGQn1S820YGWmTFQFNaoRAHt2w6Deol2rp5VPdmGEWI6FotDDOqClK4-W2-MHGS8b8vIigU8tTcnVZvh9p3uQmQ-mIeniD1P6zaMNOZySwBiEdZdOsUpv9W9-o5h9kntTDerkPa4NpiAnLlN5ccQIgSCnjI~Em7mPuWQDGHiJdnAORurBvR7L7CW3indPMJ9t-cDp0qt0YiCQCCBuBlxFILtQBPxb6DPGIuVnmoX4k07u6w2YKZNT-MHHfbKj5rJu37r~p9zp5nvYdoOHbl5bzPeg__";
+      } else {
+        return `https://pet-shop.buckhill.com.hr/api/v1/file/${avatar}`;
+      }
+    };
+
     return {
+      user,
       logIn,
       signUp,
       logout,
@@ -828,9 +878,11 @@ export default defineComponent({
       cartTotalItems,
       closeModal,
       openModal,
+      formatDate,
       loginModalVisible,
       userModalVisible,
       signUpModalVisible,
+      getUserAvatar,
     };
   },
 });
