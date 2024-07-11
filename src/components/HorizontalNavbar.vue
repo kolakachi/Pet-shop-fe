@@ -72,15 +72,24 @@
             </p>
           </router-link>
           <button
+            v-if="!authStore.isLoggedIn()"
             @click="openModal('loginModal')"
             class="navbar-btn d-flex align-items-center justify-content-center gap-2 modal-btn"
             data-modal="loginModal"
           >
             <p class="fw-medium text-uppercase fnt-14">Login</p>
           </button>
+          <button
+            v-if="authStore.isLoggedIn()"
+            @click="logout()"
+            class="navbar-btn d-flex align-items-center justify-content-center gap-2 modal-btn"
+            data-modal="loginModal"
+          >
+            <p class="fw-medium text-uppercase fnt-14">Logout</p>
+          </button>
 
           <button
-            v-if="isLoggedin"
+            v-if="authStore.isLoggedIn()"
             class="user-btn d-flex align-items-center gap-1 modal-btn tool-tip-btn"
             data-modal="userModal"
           >
@@ -124,15 +133,16 @@
 
         <div class="auth-container d-flex flex-column gap-4 py-4">
           <div class="d-flex justify-content-center">
-            <img src="assets/images/logos/logo(mixed).png" alt="Petson logo" />
+            <img src="/assets/images/logos/logo(mixed).png" alt="Petson logo" />
           </div>
           <h4 class="text-center">Login</h4>
 
-          <form class="d-flex flex-column gap-4">
+          <form class="d-flex flex-column gap-4" @submit.prevent="logIn()">
             <div class="input-group d-flex gap-3">
               <div class="input-div flex-grow-1">
                 <input
                   type="email"
+                  v-model="logInFormData.email"
                   class="auth-input w-100"
                   placeholder="Email Address *"
                   required
@@ -143,6 +153,7 @@
               <div class="input-div flex-grow-1">
                 <input
                   type="password"
+                  v-model="logInFormData.password"
                   class="auth-input w-100"
                   placeholder="Password *"
                   required
@@ -215,15 +226,16 @@
 
         <div class="auth-container d-flex flex-column gap-4 py-4">
           <div class="d-flex justify-content-center">
-            <img src="assets/images/logos/logo(mixed).png" alt="Petson logo" />
+            <img src="/assets/images/logos/logo(mixed).png" alt="Petson logo" />
           </div>
           <h4 class="text-center">SignUp</h4>
 
-          <form class="d-flex flex-column gap-4">
+          <form class="d-flex flex-column gap-4" @submit.prevent="signUp()">
             <div class="input-group d-flex gap-3">
               <div class="input-div flex-grow-1">
                 <input
                   type="text"
+                  v-model="signUpFormData.first_name"
                   class="auth-input w-100"
                   placeholder="First Name *"
                   required
@@ -232,6 +244,7 @@
               <div class="input-div flex-grow-1">
                 <input
                   type="text"
+                  v-model="signUpFormData.last_name"
                   class="auth-input w-100"
                   placeholder="LastName *"
                   required
@@ -242,6 +255,7 @@
               <div class="input-div flex-grow-1">
                 <input
                   type="email"
+                  v-model="signUpFormData.email"
                   class="auth-input w-100"
                   placeholder="Email Address *"
                   required
@@ -252,6 +266,7 @@
               <div class="input-div flex-grow-1">
                 <input
                   type="password"
+                  v-model="signUpFormData.password"
                   class="auth-input w-100"
                   placeholder="Password *"
                   required
@@ -262,6 +277,7 @@
               <div class="input-div flex-grow-1">
                 <input
                   type="password"
+                  v-model="signUpFormData.password_confirmation"
                   class="auth-input w-100"
                   placeholder="Confirm Password *"
                   required
@@ -308,6 +324,8 @@
 <script lang="ts">
 import { defineComponent, ref, computed } from "vue";
 import { useStore } from "vuex";
+import axios from "../axios";
+import { useAuthStore } from "../store/auth";
 
 export default defineComponent({
   name: "HorizontalNavbar",
@@ -342,7 +360,91 @@ export default defineComponent({
       }
     };
 
+    const authStore = useAuthStore();
+    const logInFormData = {
+      email: "",
+      password: "",
+    };
+    const validateSignInForm = () => {
+      return logInFormData.email !== "" && logInFormData.password !== "";
+    };
+
+    const logIn = async () => {
+      try {
+        if (validateSignInForm()) {
+          const response = await axios.post("/user/login", logInFormData);
+          if (response.data.success) {
+            authStore.setToken(response.data.data.token);
+            closeModal("loginModal");
+          } else {
+            alert(response.data.error);
+          }
+        } else {
+          alert("Please fill in all required fields.");
+        }
+      } catch (error) {
+        alert("Encountered an error.");
+      }
+    };
+
+    const signUpFormData = {
+      first_name: "",
+      last_name: "",
+      email: "",
+      phone_number: "0909090909",
+      address: "address",
+      password: "",
+      password_confirmation: "",
+    };
+
+    const validateSignUpForm = () => {
+      return (
+        signUpFormData.first_name !== "" &&
+        signUpFormData.last_name !== "" &&
+        signUpFormData.email !== "" &&
+        signUpFormData.phone_number !== "" &&
+        signUpFormData.address !== "" &&
+        signUpFormData.password.length > 7 &&
+        signUpFormData.password == signUpFormData.password_confirmation
+      );
+    };
+
+    const signUp = async () => {
+      try {
+        if (validateSignUpForm()) {
+          const response = await axios.post("/user/create", signUpFormData);
+          if (response.data.success) {
+            authStore.setUser(response.data.data);
+            authStore.setToken(response.data.data.token);
+            closeModal("signUpModal");
+            alert("Welcome");
+          } else {
+            alert(response.data.error);
+          }
+        } else {
+          alert("Please fill in all required fields.");
+        }
+      } catch (error) {
+        alert("Encountered an error.");
+      }
+    };
+
+    const logout = async () => {
+      const response = await axios.get("/user/logout");
+      if (!response.data.success) {
+        alert(response.data.error);
+      } else {
+        authStore.logout();
+      }
+    };
+
     return {
+      logIn,
+      signUp,
+      logout,
+      authStore,
+      logInFormData,
+      signUpFormData,
       cartTotalItems,
       isLoggedin,
       closeModal,
