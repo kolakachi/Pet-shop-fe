@@ -289,7 +289,7 @@ export default defineComponent({
     });
 
     const store = useStore();
-    const addToCart = (product) => {
+    const addToCart = (product: Product) => {
       store.dispatch("addToCart", product);
     };
 

@@ -515,7 +515,9 @@
                             0px 2px 4px 0px #00000029;
                         "
                       >
-                        <p class="clr--primary text-uppercase fw-medium">Previous</p>
+                        <p class="clr--primary text-uppercase fw-medium">
+                          Previous
+                        </p>
                         <span class="btn-ripple"></span>
                       </button>
                       <button
@@ -718,7 +720,7 @@
                           class="d-flex align-items-center justify-content-between"
                         >
                           <p class="clr--subtext">Subtotal before delivery</p>
-                          <p class="clr--subtext">{{cartTotal}}kn</p>
+                          <p class="clr--subtext">{{ cartTotal }}kn</p>
                         </div>
                         <div
                           class="d-flex align-items-center justify-content-between"
@@ -989,6 +991,6 @@ export default defineComponent({
   background-color: #f4f6f5;
 }
 .btn-white--bg {
-    border: 1px solid var(--primary);;
+  border: 1px solid var(--primary);
 }
 </style>
