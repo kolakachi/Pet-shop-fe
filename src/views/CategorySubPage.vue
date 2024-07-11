@@ -163,7 +163,11 @@
                         :key="product.uuid"
                         class="col-xl-4 col-lg-6 col-sm-12"
                       >
-                        <div
+                        <router-link
+                          :to="{
+                            name: 'product',
+                            params: { uuid: product.uuid },
+                          }"
                           class="product-card d-flex flex-column gap-3 px-3 py-4 clr--black"
                         >
                           <div class="product-card-img-div d-flex">
@@ -178,14 +182,7 @@
                             <h6
                               class="product-title text-decoration-underline product-card-text"
                             >
-                              <router-link
-                                :to="{
-                                  name: 'product',
-                                  params: { uuid: product.uuid },
-                                }"
-                              >
-                                {{ product.title }}
-                              </router-link>
+                              {{ product.title }}
                             </h6>
                             <p class="product-description product-card-text">
                               {{ product.description }}
@@ -220,7 +217,7 @@
                               </button>
                             </div>
                           </div>
-                        </div>
+                        </router-link>
                       </div>
                     </div>
                   </div>
