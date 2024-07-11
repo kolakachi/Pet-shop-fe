@@ -14,10 +14,14 @@
                 </p>
               </header>
 
-              <form class="d-flex flex-column gap-4">
+              <form
+                class="d-flex flex-column gap-4"
+                @submit.prevent="changePassword"
+              >
                 <div class="input-group d-flex gap-3">
                   <div class="input-div flex-grow-1">
                     <input
+                      v-model="formData.password"
                       type="password"
                       class="auth-input w-100"
                       placeholder="New password"
@@ -28,6 +32,7 @@
                 <div class="input-group d-flex gap-3">
                   <div class="input-div flex-grow-1">
                     <input
+                      v-model="formData.password_confirmation"
                       type="password"
                       class="auth-input w-100"
                       placeholder="Re-enter your new password"
@@ -58,9 +63,61 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import axios from "../axios";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   name: "ChangePasswordPage",
+  props: {
+    token: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+    },
+  },
+  setup(props) {
+    const router = useRouter();
+    const formData = {
+      token: props.token,
+      email: props.email,
+      password: "",
+      password_confirmation: "",
+    };
+
+    const validateForm = () => {
+      return (
+        formData.password.length > 7 &&
+        formData.password == formData.password_confirmation
+      );
+    };
+    const changePassword = async () => {
+      try {
+        if (validateForm()) {
+          const response = await axios.post(
+            "/user/reset-password-token",
+            formData
+          );
+          if (response.data.success) {
+            router.push({ path: "/" });
+          } else {
+            alert(response.data.error);
+          }
+        } else {
+          alert("Please fill in all required fields.");
+        }
+      } catch (error) {
+        alert("Encountered an error.");
+      }
+    };
+
+    return {
+      formData,
+      changePassword,
+    };
+  },
 });
 </script>
 <style scoped>

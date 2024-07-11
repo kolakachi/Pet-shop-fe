@@ -51,6 +51,7 @@ const routes: Array<RouteRecordRaw> = [
         component: ChangePasswordPage,
         props: (route) => ({
           token: route.query.token,
+          email: route.query.email,
         }),
       },
       {

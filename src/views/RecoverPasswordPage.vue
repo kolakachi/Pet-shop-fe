@@ -132,7 +132,10 @@ export default defineComponent({
             redirectModalVisible.value = true;
             const changePasswordPageLocation = router.resolve({
               path: "/change-password",
-              query: { token: response.data.data.reset_token },
+              query: {
+                token: response.data.data.reset_token,
+                email: formData.email,
+              },
             });
             const fullPath = `${changePasswordPageLocation.fullPath}`;
             const baseUrl = window.location.origin;
