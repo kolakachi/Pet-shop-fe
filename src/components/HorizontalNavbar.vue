@@ -90,6 +90,7 @@
 
           <button
             v-if="authStore.isLoggedIn()"
+            @click="openModal('userModal')"
             class="user-btn d-flex align-items-center gap-1 modal-btn tool-tip-btn"
             data-modal="userModal"
           >
@@ -318,6 +319,386 @@
         </div>
       </div>
     </section>
+
+    <section
+      :class="{ visible: userModalVisible }"
+      class="custom-modal"
+      id="userModal"
+    >
+      <div class="modal-inner modal-inner-lg bg-white custom--modal--padding">
+        <button
+          @click="closeModal('userModal')"
+          class="position-absolute tool-tip-btn close-modal-btn close-btn pe-none-inner"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="14"
+            viewBox="0 0 14 14"
+            fill="none"
+          >
+            <path
+              d="M14 1.41L12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41Z"
+              fill="black"
+              fill-opacity="0.54"
+            />
+          </svg>
+          <span class="tool-tip">Close</span>
+        </button>
+
+        <div class="d-flex flex-column gap-4 py-3 mb-3">
+          <h4 class="text-center">User Settings</h4>
+        </div>
+
+        <section>
+          <div class="d-flex flex-column flex-md-row mb-5">
+            <section
+              class="user-img-modal d-flex justify-content-center px-4 px-md-5"
+            >
+              <img
+                width="150"
+                height="150"
+                class="rounded-circle"
+                src="https://s3-alpha-sig.figma.com/img/a8de/b080/6ecb230ed941d771dd185bcb77ae8017?Expires=1721606400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Hx2qka5lc2PMvSiPddaFP5HVU-MAwjzlHOjIJJARNKtlSC~93K3C-c3HOmmFQKGQn1S820YGWmTFQFNaoRAHt2w6Deol2rp5VPdmGEWI6FotDDOqClK4-W2-MHGS8b8vIigU8tTcnVZvh9p3uQmQ-mIeniD1P6zaMNOZySwBiEdZdOsUpv9W9-o5h9kntTDerkPa4NpiAnLlN5ccQIgSCnjI~Em7mPuWQDGHiJdnAORurBvR7L7CW3indPMJ9t-cDp0qt0YiCQCCBuBlxFILtQBPxb6DPGIuVnmoX4k07u6w2YKZNT-MHHfbKj5rJu37r~p9zp5nvYdoOHbl5bzPeg__"
+                alt=""
+              />
+            </section>
+
+            <section class="flex-one px-4 px-md-5">
+              <div class="row g-4">
+                <div class="col-lg-4">
+                  <div>
+                    <small class="clr--subtext fnt-12">Name</small>
+                    <p class="fnt-16 clr--black">John Rollingston</p>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div>
+                    <small class="clr--subtext fnt-12">Phone number</small>
+                    <p class="fnt-16 clr--black">(559) 979-6096</p>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div>
+                    <small class="clr--subtext fnt-12">Address</small>
+                    <p class="fnt-16 clr--black">
+                      1285 Fallen Pioneer Heights, Dallas, TX
+                    </p>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div>
+                    <small class="clr--subtext fnt-12">Date joined</small>
+                    <p class="fnt-16 clr--black">14. 9. 2020.</p>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div>
+                    <small class="clr--subtext fnt-12">Email</small>
+                    <p class="fnt-16 clr--black">j.sharp@hotmail.com</p>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div>
+                    <small class="clr--subtext fnt-12"
+                      >Marketing preferences</small
+                    >
+                    <p class="fnt-16 clr--black">No</p>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <div class="custom--table">
+            <div class="custom--table--inner">
+              <section class="table-section">
+                <header class="px-3 py-4">Latest orders</header>
+
+                <table class="table table-responsive">
+                  <thead>
+                    <tr>
+                      <th class="px-3" scope="col">
+                        <p class="clr--subtext">Order UUID</p>
+                      </th>
+                      <th class="px-3" scope="col">
+                        <p class="clr--subtext">Status</p>
+                      </th>
+                      <th scope="col" class="px-3 clr--subtext">
+                        <p class="clr--subtext text-center">Download invoice</p>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="px-3">
+                        <p class="clr--subtext">
+                          083d0036-9616-3f1e-9b03-4fe51ad2e1c2
+                        </p>
+                      </td>
+                      <td class="px-3">
+                        <p class="status-type open fnt-13">Open</p>
+                      </td>
+                      <td class="px-3">
+                        <div
+                          class="d-flex align-items-center justify-content-center gap-2"
+                        >
+                          <a
+                            href="#"
+                            class="d-flex align-items-center justify-content-center download-btn"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="21"
+                              height="21"
+                              viewBox="0 0 21 21"
+                              fill="none"
+                            >
+                              <g clip-path="url(#clip0_10382_795)">
+                                <path
+                                  d="M16.4495 10.5V16.3333H4.78288V10.5H3.11621V16.3333C3.11621 17.25 3.86621 18 4.78288 18H16.4495C17.3662 18 18.1162 17.25 18.1162 16.3333V10.5H16.4495ZM11.4495 11.0583L13.6079 8.90833L14.7829 10.0833L10.6162 14.25L6.44954 10.0833L7.62454 8.90833L9.78288 11.0583V3H11.4495V11.0583Z"
+                                  fill="black"
+                                  fill-opacity="0.54"
+                                />
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_10382_795">
+                                  <rect
+                                    width="20"
+                                    height="20"
+                                    fill="white"
+                                    transform="translate(0.616211 0.5)"
+                                  />
+                                </clipPath>
+                              </defs>
+                            </svg>
+                          </a>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td class="px-3">
+                        <p class="clr--subtext">
+                          083d0036-9616-3f1e-9b03-4fe51ad2e1c2
+                        </p>
+                      </td>
+                      <td class="px-3">
+                        <p class="status-type pending-payment fnt-13">
+                          Pending payment
+                        </p>
+                      </td>
+                      <td class="px-3">
+                        <div
+                          class="d-flex align-items-center justify-content-center gap-2"
+                        >
+                          <a
+                            href="#"
+                            class="d-flex align-items-center justify-content-center download-btn"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="21"
+                              height="21"
+                              viewBox="0 0 21 21"
+                              fill="none"
+                            >
+                              <g clip-path="url(#clip0_10382_795)">
+                                <path
+                                  d="M16.4495 10.5V16.3333H4.78288V10.5H3.11621V16.3333C3.11621 17.25 3.86621 18 4.78288 18H16.4495C17.3662 18 18.1162 17.25 18.1162 16.3333V10.5H16.4495ZM11.4495 11.0583L13.6079 8.90833L14.7829 10.0833L10.6162 14.25L6.44954 10.0833L7.62454 8.90833L9.78288 11.0583V3H11.4495V11.0583Z"
+                                  fill="black"
+                                  fill-opacity="0.54"
+                                />
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_10382_795">
+                                  <rect
+                                    width="20"
+                                    height="20"
+                                    fill="white"
+                                    transform="translate(0.616211 0.5)"
+                                  />
+                                </clipPath>
+                              </defs>
+                            </svg>
+                          </a>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td class="px-3">
+                        <p class="clr--subtext">
+                          083d0036-9616-3f1e-9b03-4fe51ad2e1c2
+                        </p>
+                      </td>
+                      <td class="px-3">
+                        <p class="status-type shipped fnt-13">Shipped</p>
+                      </td>
+                      <td class="px-3">
+                        <div
+                          class="d-flex align-items-center justify-content-center gap-2"
+                        >
+                          <a
+                            href="#"
+                            class="d-flex align-items-center justify-content-center download-btn"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="21"
+                              height="21"
+                              viewBox="0 0 21 21"
+                              fill="none"
+                            >
+                              <g clip-path="url(#clip0_10382_795)">
+                                <path
+                                  d="M16.4495 10.5V16.3333H4.78288V10.5H3.11621V16.3333C3.11621 17.25 3.86621 18 4.78288 18H16.4495C17.3662 18 18.1162 17.25 18.1162 16.3333V10.5H16.4495ZM11.4495 11.0583L13.6079 8.90833L14.7829 10.0833L10.6162 14.25L6.44954 10.0833L7.62454 8.90833L9.78288 11.0583V3H11.4495V11.0583Z"
+                                  fill="black"
+                                  fill-opacity="0.54"
+                                />
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_10382_795">
+                                  <rect
+                                    width="20"
+                                    height="20"
+                                    fill="white"
+                                    transform="translate(0.616211 0.5)"
+                                  />
+                                </clipPath>
+                              </defs>
+                            </svg>
+                          </a>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td class="px-3">
+                        <p class="clr--subtext">
+                          083d0036-9616-3f1e-9b03-4fe51ad2e1c2
+                        </p>
+                      </td>
+                      <td class="px-3">
+                        <p class="status-type cancelled fnt-13">Cancelled</p>
+                      </td>
+                      <td class="px-3">
+                        <div
+                          class="d-flex align-items-center justify-content-center gap-2"
+                        >
+                          <a
+                            href="#"
+                            class="d-flex align-items-center justify-content-center download-btn"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="21"
+                              height="21"
+                              viewBox="0 0 21 21"
+                              fill="none"
+                            >
+                              <g clip-path="url(#clip0_10382_795)">
+                                <path
+                                  d="M16.4495 10.5V16.3333H4.78288V10.5H3.11621V16.3333C3.11621 17.25 3.86621 18 4.78288 18H16.4495C17.3662 18 18.1162 17.25 18.1162 16.3333V10.5H16.4495ZM11.4495 11.0583L13.6079 8.90833L14.7829 10.0833L10.6162 14.25L6.44954 10.0833L7.62454 8.90833L9.78288 11.0583V3H11.4495V11.0583Z"
+                                  fill="black"
+                                  fill-opacity="0.54"
+                                />
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_10382_795">
+                                  <rect
+                                    width="20"
+                                    height="20"
+                                    fill="white"
+                                    transform="translate(0.616211 0.5)"
+                                  />
+                                </clipPath>
+                              </defs>
+                            </svg>
+                          </a>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div class="d-flex justify-content-end gap-4 px-3 py-2">
+                  <div class="d-flex align-items-center gap-2">
+                    <label for="" class="clr--subtext fnt-14"
+                      >Rows per page:</label
+                    >
+                    <div class="position-relative">
+                      <select
+                        id=""
+                        class="clr--subtext pe-2 cursor-pointer border-0 fw-medium"
+                      >
+                        <option value="">5</option>
+                        <option value="">10</option>
+                        <option value="">15</option>
+                      </select>
+
+                      <svg
+                        class="position-absolute pe-none top-50 translate-middle-y end-0"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="10"
+                        height="6"
+                        viewBox="0 0 10 6"
+                        fill="none"
+                      >
+                        <path
+                          d="M0 0.0869141L5 5.08691L10 0.0869141H0Z"
+                          fill="black"
+                          fill-opacity="0.54"
+                        ></path>
+                      </svg>
+                    </div>
+                  </div>
+
+                  <div class="table-pagination d-flex align-items-center gap-3">
+                    <p class="clr--subtext">1 - 5 of 240</p>
+
+                    <div class="pagination-arrows d-flex gap-1">
+                      <button class="pagination-arrow">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="8"
+                          height="15"
+                          viewBox="0 0 8 15"
+                          fill="none"
+                        >
+                          <path
+                            d="M7 13.2844L1.06906 7.25974C1.03075 7.22082 1.03075 7.15835 1.06906 7.11943L7 1.09473"
+                            stroke="#9FA2B4"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                          />
+                        </svg>
+                      </button>
+                      <button class="pagination-arrow">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="8"
+                          height="15"
+                          viewBox="0 0 8 15"
+                          fill="none"
+                        >
+                          <path
+                            d="M1 13.2844L6.93094 7.25974C6.96925 7.22082 6.96925 7.15835 6.93094 7.11943L1 1.09473"
+                            stroke="#9FA2B4"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
   </nav>
 </template>
 
@@ -333,7 +714,6 @@ export default defineComponent({
     const store = useStore();
     const cartTotalItems = computed(() => store.getters.cartTotalItems);
 
-    const isLoggedin = ref(false);
     const loginModalVisible = ref(false);
     const signUpModalVisible = ref(false);
     const userModalVisible = ref(false);
@@ -446,7 +826,6 @@ export default defineComponent({
       logInFormData,
       signUpFormData,
       cartTotalItems,
-      isLoggedin,
       closeModal,
       openModal,
       loginModalVisible,
@@ -655,5 +1034,46 @@ export default defineComponent({
   border-radius: var(--font-06);
   padding: 0 var(--font-12);
   transition: 0.3s;
+}
+.user-img-modal {
+  border-right: 1px solid #dde3e2;
+}
+.custom--table {
+  box-shadow: 0px 0px 1px 0px #0000002b, 0px 2px 4px 0px #00000029;
+  border-radius: var(--font-06);
+}
+.status-type.open {
+  --primary: #2196f3;
+}
+.status-type.pending-payment {
+  --primary: #f09e00;
+}
+.status-type.shipped {
+  --primary: #008655;
+}
+.status-type.cancelled {
+  --primary: #b6c4c1;
+}
+.custom--table .status-type {
+  padding: var(--font-05) var(--font-10);
+  width: max-content;
+  background-color: var(--primary);
+  color: var(--white);
+  border-radius: var(--font-15);
+}
+.custom--table .download-btn {
+  background-color: #dde3e2;
+  width: var(--font-35);
+  height: var(--font-35);
+  border-radius: var(--font-06);
+}
+.clr--subtext {
+  color: #0000008a;
+}
+.pagination-arrow {
+  width: var(--font-30);
+  height: var(--font-30);
+  border-radius: var(--font-05);
+  transition: 0.1s;
 }
 </style>
