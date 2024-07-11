@@ -1,5 +1,5 @@
-import { defineStore } from 'pinia';
-import { setToken, getToken, removeToken } from '@/utils/auth';
+import { defineStore } from "pinia";
+import { setToken, getToken, removeToken } from "@/utils/auth";
 
 interface User {
   uuid: string;
@@ -15,7 +15,7 @@ interface User {
   token: string;
 }
 
-export const useAuthStore = defineStore('auth', {
+export const useAuthStore = defineStore("auth", {
   state: () => ({
     token: getToken(),
     user: null as User | null,
@@ -25,8 +25,8 @@ export const useAuthStore = defineStore('auth', {
       this.user = data;
     },
     setToken(token: string) {
-        this.token = token;
-        setToken(token);
+      this.token = token;
+      setToken(token);
     },
     logout() {
       this.user = null;
@@ -35,6 +35,6 @@ export const useAuthStore = defineStore('auth', {
     },
     isLoggedIn() {
       return !!this.token;
-    }
-  }
+    },
+  },
 });
